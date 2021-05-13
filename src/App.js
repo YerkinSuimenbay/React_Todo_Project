@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import AddItem from "./components/AddItem"
+import Feedback from "./components/Feedback"
+import Navbar from "./components/Navbar"
+import Search from "./components/Search"
+import Sidebar from "./components/Sidebar"
+import TodoList from "./components/TodoList"
+import { useGlobalContext } from "./context/context"
 
 function App() {
+  const {isOpen} = useGlobalContext()
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* {isOpen ? <Sidebar /> : <Navbar /> } */}
+      <Navbar />
+      <Sidebar />
+      <AddItem />
+      <Search />
+      <TodoList />
+      <Feedback />
     </div>
   );
 }

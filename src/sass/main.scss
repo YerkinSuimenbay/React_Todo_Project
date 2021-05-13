@@ -1,0 +1,368 @@
+@import "configs";
+
+body {
+    background-color: $clr-primary-10;
+}
+
+// GENERAL STYLES
+button {
+    margin: 0 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background-color: azure;
+    border-radius: $radius;
+    text-transform: capitalize;
+    transition: all .5s;
+    position: relative;
+    span {
+        position: absolute;
+        top: -.5rem;
+        right: -.5rem;
+        background-color: $clr-grey-1;
+        color: #fff;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        @include flexCenter;
+        font-size: .9rem;
+
+        // &.red {
+        //     background-color: $clr-red-light;
+        // }
+        // &.green {
+        //     background-color: $clr-green-light;
+        // }
+    }
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &:hover, &.active {
+        background-color: $clr-primary-6;
+    }
+}
+
+// NAVBAR
+.nav {
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    background-color: $clr-grey-6;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.644);
+    
+    &__center {
+        @include positionBlock();
+        
+        height: $nav-height;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__login {
+        margin-right: 1rem;
+    }
+
+    &__burger {
+        display: none;
+    }
+}
+
+//SIDEBAR 
+.sidebar {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 500px;
+    background-color: rgb(190, 236, 236);
+    background-color: rgba(0, 0, 0, 0.9);
+    height: 100vh;
+    @include flexCenter;
+    transform: translateX(-100%);
+    transition: all .4s;
+    &.open {
+        transform: translateX(0);
+    }
+    &__center {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__links, &__login {
+        @include flexCenter();
+        flex-direction: column;
+
+    }
+    .btn {
+        margin: 1rem 0;
+        background-color: rgb(220, 245, 241);
+        width: 80%;
+        border-radius: 0;
+        padding: .5rem;
+
+        &:hover, &.active {
+            background-color: $clr-primary-6;
+        }
+    }
+
+    .nav__burger {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        .title {
+            color: $clr-primary-6;
+        }
+    }
+}
+
+//ADD TASK FORM 
+.form-container {
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    transform: scale(0);
+    transition: all 0.25s;
+    
+    &.open {
+        transform: scale(1);
+        transition: all .5s;
+    }
+}
+
+.form {
+    // background-color: burlywood;
+    @include positionBlock();
+    margin: $nav-height*2 auto $nav-height/1.5;
+    border: 1px solid;
+    padding: 1rem;
+    box-shadow: $light-shadow;
+    border-radius: $radius;
+    background-color: #fff;
+    position: relative;
+
+    &__close {
+        position: absolute;
+        top: -2.5rem;
+        right: -.3rem;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #fff;
+        
+        &:hover {
+            color: red;
+        }
+    }
+    input {
+        display: block;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+    .add-btn {
+        width: 100%;
+        margin: 0;
+        background-color: $clr-grey-8;
+        &:hover {
+            background-color: $clr-grey-6;
+            color: #fff;
+        }         
+    }
+}
+
+// SEARCH FORM
+.search-form {
+    border: none;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+
+    input {
+        margin-bottom: 0;
+    }
+}
+
+//TODO LIST
+.todo {
+    @include positionBlock();
+    margin-bottom: 1.5rem;
+
+    .no-todos {
+        text-align: center;
+        color: $clr-green-light;
+        text-transform: uppercase;
+    }
+    
+    &__item {
+        background-color: rgba(95, 158, 160, 0.459);
+        border-radius: $radius;
+        padding: .5rem .85rem;
+        margin: .5rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // color: $clr-primary-10;
+    }
+    
+    &__heading {
+        margin: 0;
+        font-size: 1.1rem;
+        text-transform: capitalize;
+    }
+
+    &__date {
+        font-size: .8rem;
+        margin-bottom: .5rem;
+        margin-top: 0.2rem;
+        opacity: .8;
+    }
+
+    &__task {
+        margin: 0;
+    }
+
+    &__btns {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    &__btn {
+        @include gridCenter;
+        margin: 0.2rem 0;
+        font-size: .9rem;
+
+        &.check-btn:hover {
+            background-color: $clr-green-light;
+        }
+        &.edit-btn:hover {
+            color: #000;
+            background-color: $clr-yellow-light;            
+        }
+        &.delete-btn:hover {
+            color: rgb(46, 46, 46);
+            background-color: $clr-red-light;
+        }
+ 
+        &:hover {
+            background-color: rgb(19, 139, 69);
+            color: #fff;
+        }
+    }
+}
+
+// FEEDBACK
+.feedback {
+    position: fixed;
+    top: 4.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    text-align: center;
+    background-color: rgba(144, 252, 198, 0.308);
+    box-shadow: $light-shadow;
+    // color: $clr-green-dark;
+    padding: .5rem;
+    display: none;
+    text-transform: capitalize;
+
+    &.show {
+        display: block;
+    }
+}
+
+.delete-btns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .2rem;
+
+    button {
+        background-color: $clr-red-light;
+        margin: 0;
+        font-size: .8rem;
+
+        &:hover {
+            background-color: $clr-red-dark;
+        }
+    }
+}
+
+// PAGINATION BTNS
+.btns {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.page-btn {
+    background-color: $clr-primary-8;
+    margin: 0 0.2rem;
+    padding: 0.25rem 0.5rem;
+    width: 2rem;
+    text-align: center;
+    border-radius: $radius;
+    &:hover {
+        background-color: $clr-primary-5;
+    }
+}
+
+.active-btn {
+    background-color: $clr-primary-5;
+}
+
+@media screen and (max-width: 600px) {
+    //TODO LIST
+    .todo {
+        &__btn {
+            padding: 0.35rem;
+        }
+    }
+
+    .delete-btns-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    // NAVBAR
+    .nav {
+        &__center {
+            display: none;
+        }
+
+        &__burger {
+            @include positionBlock();
+        
+            height: $nav-height;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &__title {
+            margin: 0;
+            color: $clr-primary-1;
+        }
+
+        &__burger-btn {
+            @include flexCenter;
+        }
+    }
+
+}
